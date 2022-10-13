@@ -1,6 +1,11 @@
 from numbers import Number
+from typing import Union
 
-class _v2:
+class v:
+    def __init__(self):
+        raise NotImplementedError
+
+class _v2(v):
     def __init__(self, x: Number, y: Number):
         self.x = x
         self.y = y
@@ -51,3 +56,5 @@ class v3(_v3):
     ex = _v3(1, 0, 0)
     ey = _v3(0, 1, 0)
     ez = _v3(0, 0, 1)
+
+vec = Union[v, v2, v3, _v2, _v3]

@@ -6,7 +6,10 @@ from data_runner import Axis
 
 _default_axes = Axis(start = 0., end = 1., step = 0.2)
 
-def plot(nvalues: Optional[tuple] = None, axes: Axis = None):
+def plot(dim: int, nvalues: Optional[tuple] = None, axes: Axis = None):
+    '''
+    read data and plot it
+    '''
     if nvalues == None:
         nvalues = (10, 15, 20)
     if axes == None:
@@ -19,7 +22,7 @@ def plot(nvalues: Optional[tuple] = None, axes: Axis = None):
 
     ax.set(xlim=(0, 1), xticks=np.arange(*axes),
         ylim=(0, 1), yticks=np.arange(*axes))
-    plt.title('Percolation for 2D')
+    plt.title(f'Percolation for {dim}D')
     plt.xlabel('p')
     plt.ylabel('$P_{cond}$')
     plt.legend(loc='upper left')

@@ -2,15 +2,17 @@
 # coding: utf-8
 
 from plotter import plot
-from data_runner import run
+from data_runner import run, default_nvalues
 
 
-def main():
-    #nvalues = (10,15,20)
-    nvalues = (10,)
-    run(nvalues = nvalues, density = 10)
-    #pass
-    plot()
+def main(argv: list):
+    dim = int(argv[1]) if argv[1] is not None else 2
+    density = int(argv[2]) if argv[2] is not None else 10
+    nvalues = default_nvalues
+    #nvalues = (10,)
+    run(dim, nvalues = nvalues, density = density)
+    plot(dim, nvalues = nvalues)
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(sys.argv)
