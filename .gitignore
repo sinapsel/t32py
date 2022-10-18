@@ -1,1 +1,4 @@
 __pychache__/
+*.cpython*
+*.txt
+*.hdf5
