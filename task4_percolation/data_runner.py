@@ -3,6 +3,7 @@ from matrix import rfs, gen
 from tqdm import tqdm
 from typing import Optional
 from typing import NamedTuple
+import h5py as h
 
 class Axis(NamedTuple):
     start: float
@@ -35,6 +36,9 @@ def run(dim: int, nvalues = Optional[tuple], density: Optional[int] = None, k: O
         density = 25
     ax = Axis(start = 0, end = 1, step = density)
     for i in nvalues:
-        with open(f"data{i}.txt", "w") as f:
-            for p in np.linspace(*ax):
-                f.write('%7.4f\t%7.4f\n'%(p, pcond(i, p, dim, k)))
+        values = []
+        for p in np.linspace(*ax):
+            values += [(p, pcond(i, p, dim, k))]
+        with h.File(f'data{i}.hdf5', 'w') as f:
+            data_set = f.create_dataset("default", (density, 2), 'f', data=values)
+            
