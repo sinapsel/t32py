@@ -17,4 +17,4 @@ U = 4*U0/np.pi * np.sum([(np.sin(np.pi*(2*k+1)/a*y)*1/(2*k+1)*(
 U[0, :] = U0
 U[-1, :] = 0.
 
-plotAll(x, y, U)
+plotAll(x, y, U, fname='t01.png', title='Analytical solution map')
