@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from solver import solver, jacobi
 import numpy as np
 
@@ -10,9 +12,14 @@ nsx = int((sizes.x.end - sizes.x.start )/h)
 nsy = int((sizes.y.end - sizes.y.start )/h)
 
 bm = np.zeros((nsx, nsy)).astype(bool)
-bm[0,:] = True
+id = 10
+idy = 5
+bm[id,idy:-1-idy] = True
+bm[-1-id,idy:-1-idy] = True
+
 bc = np.zeros((nsx, nsy))
-np.putmask(bc, bm, U0)
+bc[id, idy:-1-idy] = 200
+bc[-1-id, idy:-1-idy] = -200
 
 js = jacobi.JacobiSolver(
     sizes=sizes,
