@@ -1,18 +1,21 @@
-from .solver import Solver, np
-class JacobiSolver(Solver):
+from .solver import ISolver, np
+class Solver(ISolver):
     def run(self):
-        iteration = 0
+        it = 0
         rel_res = 1.0
 
         z = self.map
         h = self.dh
-        
-        while(iteration < 500):
+        z1 = 1000
+        itmax = 500
+        rtol = 1e-5
+        while (rel_res>rtol) and (it<=itmax):
             #z0 = np.sum(np.square(z))
-            z[1:-1, 1:-1] = (z[1:-1,0:-2] + z[0:-2,1:-1] + z[1:-1,2:]+ z[2:,1:-1])/4
-            #z1 = np.sum(np.square(z))
-            #print(np.abs(z1-z0))
+            dz = (z[1:-1,0:-2] + z[0:-2,1:-1] + z[1:-1,2:]+ z[2:,1:-1])/4 - z[1:-1, 1:-1]
+            z0 = z1
+            z1 = np.sqrt(np.sum(np.square(dz)))
+            z[1:-1, 1:-1] += dz
             z = z*(~self.bound_map) + self.bound_values
-            iteration += 1    
+            it += 1    
         return z
         

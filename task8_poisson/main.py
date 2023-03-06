@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from solver import solver, jacobi
+from solver import solver, jacobi, gauss_seidel, super_relaxation
 import numpy as np
 
 U0 = 100.0
@@ -18,14 +18,19 @@ bm[id,idy:-1-idy] = True
 bm[-1-id,idy:-1-idy] = True
 
 bc = np.zeros((nsx, nsy))
-bc[id, idy:-1-idy] = 200
-bc[-1-id, idy:-1-idy] = -200
+bc[id, idy:-1-idy] = U0
+bc[-1-id, idy:-1-idy] = -U0
 
-js = jacobi.JacobiSolver(
+js = jacobi.Solver(
     sizes=sizes,
     dh = h,
     rtol = 1e-1
 )
+# js = gauss_seidel.Solver(
+#     sizes=sizes,
+#     dh = h,
+#     rtol = 1e-1
+# )
 js.set_bounds(bm, bc)
 #print(js.axis_x)
 #print(js.map)

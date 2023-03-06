@@ -1,1 +1,1 @@
-__all__ = ['solver','jacobi']
+__all__ = ['solver','jacobi', 'gauss_seidel', 'super_relaxation']
