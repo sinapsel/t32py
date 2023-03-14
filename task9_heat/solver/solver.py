@@ -20,9 +20,7 @@ class ISolver():
             ]
         self.map = np.zeros((len(self.axis_x), len(self.axis_t)))
 
-    def set_bounds(self, bound_map: np.ndarray, bound_values: np.ndarray) -> None:
-        self.bound_map = bound_map
-        self.bound_values = bound_values
+    def set_bounds(self, bound_values: np.ndarray) -> None:
         self.map = bound_values.copy()
 
     def run(self):
