@@ -26,19 +26,27 @@ a = 0.5
 c = a+b/2.0
 m = b - a 
 
-# init = mapped(X, InitialWave.gauss_package(x0=-20, sigma=m, p0=p0))
-init = mapped(X, InitialWave.gauss_package(x0=c, sigma=m*.9, p0=0.0))
+init = mapped(X, InitialWave.gauss_package(x0=-20, sigma=m, p0=1.0))
+# init = mapped(X, InitialWave.gauss_package(x0=c, sigma=m*.9, p0=0.0))
 init /= np.sqrt(np.abs(np.dot(init, np.conj(init))))
 
 
-V = mapped(X, Potential.double_rect_well(in_bound=a, out_bound=b, magnitude=-1.5))
-# V = mapped(X, Potential.finite_step(start=10.0, height=0.5))
+# V = mapped(X, Potential.double_rect_well(in_bound=a, out_bound=b, magnitude=-1.5))
+V = mapped(X, Potential.finite_step(start=10.0, height=0.5))
 
 slv = duforte_frankel.Solver(
    space=space,
    V=V
 ).set_initials(init)
 u = slv.run()
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+nss = np.sum(np.abs(u[:,:])**2, axis=0)
+ax.plot(T[:], nss[:]/nss[-1])
+plt.show()
+exit()
+
 
 skip = 10
 

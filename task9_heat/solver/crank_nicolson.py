@@ -1,6 +1,7 @@
 import sys
 # sys.path.append('./solver/lib/')
 sys.path.append('./solver/pyx/')
+sys.path.append('./solver/pyx/build')
 from .solver import ISolver, np
 from crank import nicolson
 

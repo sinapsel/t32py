@@ -15,10 +15,10 @@ nst = int((space.t.end - space.t.start )/dt)
 bc = np.zeros((nsx, nst))
 bc[0, :] = 0
 bc[-1, :] = 0
-# bc[:, 0] = T0
+bc[:, 0] = T0
 # bc[:, 0] = np.sin(np.pi*(np.mgrid[space.x.start:space.x.end:dh])/space.x.end) # eigenfunction initial condition
-bc[1:nsx//2, 0] = T0/2
-bc[nsx//2+1:, 0] = T0
+# bc[1:nsx//2, 0] = T0/2
+# bc[nsx//2:, 0] = T0
 
 js = eftcs.Solver(
     space=space,
